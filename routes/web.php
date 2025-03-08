@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\base\Template_Controller;
-use App\Http\Controllers\base\Language_Controller;
+use App\Http\Controllers\Base\Template_Controller;
+use App\Http\Controllers\Base\Language_Controller;
 use App\Http\Controllers\Landings\LandingPage_Controller;
 
 
