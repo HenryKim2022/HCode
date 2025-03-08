@@ -8798,6 +8798,18 @@ document.addEventListener('DOMContentLoaded', function () {
         // Enable horizontal scroll
         suppressScrollY: true // Disable vertical scroll
       });
+      var startX;
+      xcontainers.addEventListener('touchstart', function (event) {
+        startX = event.touches[0].clientX; // Get initial touch position
+      });
+      xcontainers.addEventListener('touchmove', function (event) {
+        var moveX = event.touches[0].clientX - startX;
+
+        // If user is trying to scroll vertically (more than horizontally)
+        if (Math.abs(moveX) < Math.abs(event.touches[0].clientY - xcontainers.getBoundingClientRect().top)) {
+          event.stopPropagation(); // Stop horizontal scrolling
+        }
+      });
     }
   });
   var ycontainers = document.querySelectorAll('.y-scrollable');
@@ -8808,8 +8820,22 @@ document.addEventListener('DOMContentLoaded', function () {
         // Enable horizontal scroll
         suppressScrollY: false // Disable vertical scroll
       });
+      var startY;
+      ycontainers.addEventListener('touchstart', function (event) {
+        startY = event.touches[0].clientY; // Get initial touch position
+      });
+      ycontainers.addEventListener('touchmove', function (event) {
+        var moveY = event.touches[0].clientY - startY;
+        // If user is trying to scroll horizontally (more than vertically)
+        if (Math.abs(moveY) < Math.abs(event.touches[0].clientX - ycontainers.getBoundingClientRect().left)) {
+          event.stopPropagation(); // Stop vertical scrolling
+          ycontainers.scrollLeft += moveY; // Scroll horizontally
+        }
+      });
     }
   });
+  xcontainers.forEach(function (container) {});
+  ycontainers.forEach(function (container) {});
 });
 
 /***/ }),
