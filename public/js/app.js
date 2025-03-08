@@ -8798,22 +8798,23 @@ document.addEventListener('DOMContentLoaded', function () {
         // Enable horizontal scroll
         suppressScrollY: true // Disable vertical scroll
       });
-      var startY; // Change to track vertical start position
+      var startY;
       container.addEventListener('touchstart', function (event) {
         startY = event.touches[0].clientY; // Get initial vertical touch position
       });
       container.addEventListener('touchmove', function (event) {
         var moveY = event.touches[0].clientY - startY; // Calculate vertical movement
+        var moveX = event.touches[0].clientX - container.getBoundingClientRect().left; // Calculate horizontal movement
 
-        // If the user is trying to scroll vertically more than horizontally
-        if (Math.abs(moveY) > Math.abs(event.touches[0].clientX - container.getBoundingClientRect().left)) {
-          // Allow vertical scrolling by returning and not preventing default
+        // Determine if the user is trying to scroll vertically more than horizontally
+        if (Math.abs(moveY) > Math.abs(moveX)) {
+          // If vertical movement is greater, allow the page to scroll
           return; // Let the event propagate for page scroll
         }
 
-        // Prevent vertical scroll and allow horizontal scroll
-        event.preventDefault(); // Prevent the default vertical scrolling
-        container.scrollLeft += event.touches[0].clientX - container.getBoundingClientRect().left; // Scroll horizontally
+        // If horizontal movement is greater, prevent the default vertical scrolling
+        event.preventDefault();
+        container.scrollLeft += moveX; // Scroll horizontally
       });
     }
   });
