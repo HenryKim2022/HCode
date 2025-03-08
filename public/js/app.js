@@ -8791,51 +8791,56 @@ __webpack_require__.r(__webpack_exports__);
 
 document.addEventListener('DOMContentLoaded', function () {
   var xcontainers = document.querySelectorAll('.x-scrollable');
-  xcontainers.forEach(function (xcontainers) {
-    if (xcontainers) {
-      new perfect_scrollbar__WEBPACK_IMPORTED_MODULE_1__["default"](xcontainers, {
+  xcontainers.forEach(function (container) {
+    if (container) {
+      new perfect_scrollbar__WEBPACK_IMPORTED_MODULE_1__["default"](container, {
         suppressScrollX: false,
         // Enable horizontal scroll
         suppressScrollY: true // Disable vertical scroll
       });
       var startX;
-      xcontainers.addEventListener('touchstart', function (event) {
+      container.addEventListener('touchstart', function (event) {
         startX = event.touches[0].clientX; // Get initial touch position
       });
-      xcontainers.addEventListener('touchmove', function (event) {
+      container.addEventListener('touchmove', function (event) {
         var moveX = event.touches[0].clientX - startX;
 
-        // If user is trying to scroll vertically (more than horizontally)
-        if (Math.abs(moveX) < Math.abs(event.touches[0].clientY - xcontainers.getBoundingClientRect().top)) {
-          event.stopPropagation(); // Stop horizontal scrolling
+        // Determine if the user is trying to scroll vertically more than horizontally
+        if (Math.abs(moveX) < Math.abs(event.touches[0].clientY - container.getBoundingClientRect().top)) {
+          // Allow vertical scrolling if the user is swiping more vertically
+          return; // Let the event propagate, allowing the page to scroll
         }
+
+        // Prevent vertical scroll and allow horizontal scroll
+        event.preventDefault();
+        container.scrollLeft += moveX; // Scroll horizontally
+        startX = event.touches[0].clientX; // Update start position
       });
     }
   });
   var ycontainers = document.querySelectorAll('.y-scrollable');
-  ycontainers.forEach(function (ycontainers) {
-    if (ycontainers) {
-      new perfect_scrollbar__WEBPACK_IMPORTED_MODULE_1__["default"](ycontainers, {
+  ycontainers.forEach(function (container) {
+    if (container) {
+      new perfect_scrollbar__WEBPACK_IMPORTED_MODULE_1__["default"](container, {
         suppressScrollX: true,
-        // Enable horizontal scroll
-        suppressScrollY: false // Disable vertical scroll
+        // Disable horizontal scroll
+        suppressScrollY: false // Enable vertical scroll
       });
       var startY;
-      ycontainers.addEventListener('touchstart', function (event) {
+      container.addEventListener('touchstart', function (event) {
         startY = event.touches[0].clientY; // Get initial touch position
       });
-      ycontainers.addEventListener('touchmove', function (event) {
+      container.addEventListener('touchmove', function (event) {
         var moveY = event.touches[0].clientY - startY;
-        // If user is trying to scroll horizontally (more than vertically)
-        if (Math.abs(moveY) < Math.abs(event.touches[0].clientX - ycontainers.getBoundingClientRect().left)) {
-          event.stopPropagation(); // Stop vertical scrolling
-          ycontainers.scrollLeft += moveY; // Scroll horizontally
+
+        // Determine if the user is trying to scroll horizontally more than vertically
+        if (Math.abs(moveY) < Math.abs(event.touches[0].clientX - container.getBoundingClientRect().left)) {
+          event.preventDefault(); // Prevent vertical scrolling
+          container.scrollLeft += moveY; // Scroll horizontally
         }
       });
     }
   });
-  xcontainers.forEach(function (container) {});
-  ycontainers.forEach(function (container) {});
 });
 
 /***/ }),
