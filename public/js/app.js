@@ -8841,7 +8841,7 @@ document.addEventListener('DOMContentLoaded', function () {
           event.preventDefault(); // Prevent default scrolling behavior
           event.stopPropagation(); // Stop horizontal scrolling
           // Allow the page to scroll
-          window.scrollTo(0, window.scrollY + moveY);
+          window.scrollTo(0, window.scrollY - moveY);
         }
       });
       document.body.addEventListener('touchmove', function (event) {
