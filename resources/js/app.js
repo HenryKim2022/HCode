@@ -22,13 +22,14 @@ document.addEventListener('DOMContentLoaded', function () {
             container.addEventListener('touchmove', (event) => {
                 const moveX = event.touches[0].clientX - startX;
 
-                // If user is trying to scroll vertically (more than horizontally)
+                // Determine if the user is trying to scroll vertically more than horizontally
                 if (Math.abs(moveX) < Math.abs(event.touches[0].clientY - container.getBoundingClientRect().top)) {
-                    // Allow vertical scrolling outside this container
-                    return; // Do not stop propagation
+                    // Allow vertical scrolling if the user is swiping more vertically
+                    return; // Let the event propagate, allowing the page to scroll
                 }
 
-                event.preventDefault(); // Prevent vertical scrolling
+                // Prevent vertical scroll and allow horizontal scroll
+                event.preventDefault();
                 container.scrollLeft += moveX; // Scroll horizontally
                 startX = event.touches[0].clientX; // Update start position
             });
@@ -50,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
             container.addEventListener('touchmove', (event) => {
                 const moveY = event.touches[0].clientY - startY;
 
-                // If user is trying to scroll horizontally (more than vertically)
+                // Determine if the user is trying to scroll horizontally more than vertically
                 if (Math.abs(moveY) < Math.abs(event.touches[0].clientX - container.getBoundingClientRect().left)) {
                     event.preventDefault(); // Prevent vertical scrolling
                     container.scrollLeft += moveY; // Scroll horizontally
@@ -58,7 +59,4 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
     });
-
-
-
 });
