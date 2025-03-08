@@ -8843,12 +8843,12 @@ document.addEventListener('DOMContentLoaded', function () {
       });
       // Disable vertical scrolling
       xcontainer.addEventListener('wheel', function (event) {
-        if (event.deltaY !== 0) {
+        if (event.deltaY !== 0 && event.target === xcontainer) {
           event.preventDefault();
         }
       });
       xcontainer.addEventListener('mousewheel', function (event) {
-        if (event.wheelDeltaY !== 0) {
+        if (event.wheelDeltaY !== 0 && event.target === xcontainer) {
           event.preventDefault();
         }
       });

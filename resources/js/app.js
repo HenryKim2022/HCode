@@ -24,7 +24,6 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
             let isScrollingVertically = false;
-
             xcontainer.addEventListener('touchmove', (event) => {
                 console.log('touchmove event triggered');
                 const moveX = event.touches[0].clientX - startX;
@@ -64,13 +63,13 @@ document.addEventListener('DOMContentLoaded', function () {
             });
             // Disable vertical scrolling
             xcontainer.addEventListener('wheel', (event) => {
-                if (event.deltaY !== 0) {
+                if (event.deltaY !== 0 && event.target === xcontainer) {
                     event.preventDefault();
                 }
             });
 
             xcontainer.addEventListener('mousewheel', (event) => {
-                if (event.wheelDeltaY !== 0) {
+                if (event.wheelDeltaY !== 0 && event.target === xcontainer) {
                     event.preventDefault();
                 }
             });
