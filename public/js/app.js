@@ -8816,17 +8816,14 @@ document.addEventListener('DOMContentLoaded', function () {
         var deltaTime = currentTime - lastMoveTime;
         lastMoveTime = currentTime;
 
+        // Disable horizontal scrollbar
+        xcontainer.style.overflowX = 'hidden';
+
         // If user is trying to move vertically (more than horizontally)
         if (Math.abs(moveY) > Math.abs(moveX)) {
           console.log('vertical touch move detected');
           event.preventDefault(); // Prevent default scrolling behavior
           event.stopPropagation(); // Stop horizontal scrolling
-
-          // Disable horizontal scrollbar if not already disabled
-          if (!isTouchScrollingVertically) {
-            isTouchScrollingVertically = true;
-            xcontainer.style.overflowX = 'hidden';
-          }
 
           // Calculate velocity
           velocity = moveY / deltaTime;
