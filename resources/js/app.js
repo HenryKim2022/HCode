@@ -23,30 +23,30 @@ document.addEventListener('DOMContentLoaded', function () {
                 startY = event.touches[0].clientY; // Get initial touch position
             });
 
-            let isScrollingVertically = false;
+            let isTouchScrollingVertically = false;
 
             xcontainer.addEventListener('touchmove', (event) => {
                 console.log('touchmove event triggered');
                 const moveX = event.touches[0].clientX - startX;
                 const moveY = event.touches[0].clientY - startY;
 
-                // If user is trying to scroll vertically (more than horizontally)
+                // If user is trying to move vertically (more than horizontally)
                 if (Math.abs(moveY) > Math.abs(moveX)) {
-                    console.log('vertical scrolling detected');
+                    console.log('vertical touch move detected');
                     event.preventDefault(); // Prevent default scrolling behavior
                     event.stopPropagation(); // Stop horizontal scrolling
                     // Allow the page to scroll
                     window.scrollTo(0, window.scrollY - moveY);
 
                     // Disable horizontal scrollbar if not already disabled
-                    if (!isScrollingVertically) {
-                        isScrollingVertically = true;
+                    if (!isTouchScrollingVertically) {
+                        isTouchScrollingVertically = true;
                         xcontainer.style.overflowX = 'hidden';
                     }
                 } else {
                     // Re-enable horizontal scrollbar if it was previously disabled
-                    if (isScrollingVertically) {
-                        isScrollingVertically = false;
+                    if (isTouchScrollingVertically) {
+                        isTouchScrollingVertically = false;
                         xcontainer.style.overflowX = 'auto';
                     }
                 }
@@ -54,16 +54,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Re-enable horizontal scrollbar when user stops scrolling
             document.addEventListener('touchend', () => {
-                if (isScrollingVertically) {
-                    isScrollingVertically = false;
+                if (isTouchScrollingVertically) {
+                    isTouchScrollingVertically = false;
                     xcontainer.style.overflowX = 'auto';
                 }
             });
-
             document.body.addEventListener('touchmove', (event) => {
                 console.log('touchmove event received by document.body');
             });
-
             // Disable vertical scrolling
             xcontainer.addEventListener('wheel', (event) => {
                 if (event.deltaY !== 0) {
@@ -78,6 +76,8 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
     });
+
+
 
     const ycontainers = document.querySelectorAll('.y-scrollable');
     ycontainers.forEach(ycontainer => {

@@ -8803,29 +8803,29 @@ document.addEventListener('DOMContentLoaded', function () {
         startX = event.touches[0].clientX; // Get initial touch position
         startY = event.touches[0].clientY; // Get initial touch position
       });
-      var isScrollingVertically = false;
+      var isTouchScrollingVertically = false;
       xcontainer.addEventListener('touchmove', function (event) {
         console.log('touchmove event triggered');
         var moveX = event.touches[0].clientX - startX;
         var moveY = event.touches[0].clientY - startY;
 
-        // If user is trying to scroll vertically (more than horizontally)
+        // If user is trying to move vertically (more than horizontally)
         if (Math.abs(moveY) > Math.abs(moveX)) {
-          console.log('vertical scrolling detected');
+          console.log('vertical touch move detected');
           event.preventDefault(); // Prevent default scrolling behavior
           event.stopPropagation(); // Stop horizontal scrolling
           // Allow the page to scroll
           window.scrollTo(0, window.scrollY - moveY);
 
           // Disable horizontal scrollbar if not already disabled
-          if (!isScrollingVertically) {
-            isScrollingVertically = true;
+          if (!isTouchScrollingVertically) {
+            isTouchScrollingVertically = true;
             xcontainer.style.overflowX = 'hidden';
           }
         } else {
           // Re-enable horizontal scrollbar if it was previously disabled
-          if (isScrollingVertically) {
-            isScrollingVertically = false;
+          if (isTouchScrollingVertically) {
+            isTouchScrollingVertically = false;
             xcontainer.style.overflowX = 'auto';
           }
         }
@@ -8833,15 +8833,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // Re-enable horizontal scrollbar when user stops scrolling
       document.addEventListener('touchend', function () {
-        if (isScrollingVertically) {
-          isScrollingVertically = false;
+        if (isTouchScrollingVertically) {
+          isTouchScrollingVertically = false;
           xcontainer.style.overflowX = 'auto';
         }
       });
       document.body.addEventListener('touchmove', function (event) {
         console.log('touchmove event received by document.body');
       });
-
       // Disable vertical scrolling
       xcontainer.addEventListener('wheel', function (event) {
         if (event.deltaY !== 0) {
