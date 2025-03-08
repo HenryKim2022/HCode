@@ -22,6 +22,33 @@ document.addEventListener('DOMContentLoaded', function () {
                 startX = event.touches[0].clientX; // Get initial touch position
                 startY = event.touches[0].clientY; // Get initial touch position
             });
+            // xcontainer.addEventListener('touchmove', (event) => {
+            //     console.log('touchmove event triggered');
+            //     const moveX = event.touches[0].clientX - startX;
+            //     const moveY = event.touches[0].clientY - startY;
+
+            //     // If user is trying to scroll vertically (more than horizontally)
+            //     if (Math.abs(moveY) > Math.abs(moveX)) {
+            //         console.log('vertical scrolling detected');
+            //         event.preventDefault(); // Prevent default scrolling behavior
+            //         event.stopPropagation(); // Stop horizontal scrolling
+            //         // Allow the page to scroll
+            //         const newEvent = new TouchEvent('touchmove', {
+            //             touches: event.touches,
+            //             targetTouches: event.targetTouches,
+            //             changedTouches: event.changedTouches,
+            //             altKey: event.altKey,
+            //             metaKey: event.metaKey,
+            //             ctrlKey: event.ctrlKey,
+            //             shiftKey: event.shiftKey,
+            //         });
+            //         console.log('dispatching new event to document.body');
+            //         document.body.dispatchEvent(newEvent);
+            //         // Move the scroll position of the page
+            //         window.scrollTo(0, window.scrollY + moveY);
+            //     }
+            // });
+
             xcontainer.addEventListener('touchmove', (event) => {
                 console.log('touchmove event triggered');
                 const moveX = event.touches[0].clientX - startX;
@@ -33,18 +60,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     event.preventDefault(); // Prevent default scrolling behavior
                     event.stopPropagation(); // Stop horizontal scrolling
                     // Allow the page to scroll
-                    const newEvent = new TouchEvent('touchmove', {
-                        touches: event.touches,
-                        targetTouches: event.targetTouches,
-                        changedTouches: event.changedTouches,
-                        altKey: event.altKey,
-                        metaKey: event.metaKey,
-                        ctrlKey: event.ctrlKey,
-                        shiftKey: event.shiftKey,
-                    });
-                    console.log('dispatching new event to document.body');
-                    document.body.dispatchEvent(newEvent);
-                    // Move the scroll position of the page
                     window.scrollTo(0, window.scrollY + moveY);
                 }
             });
