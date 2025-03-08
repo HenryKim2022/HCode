@@ -8812,7 +8812,28 @@ document.addEventListener('DOMContentLoaded', function () {
           event.preventDefault(); // Prevent default scrolling behavior
           event.stopPropagation(); // Stop horizontal scrolling
           // Allow the page to scroll
-          document.body.dispatchEvent(new TouchEvent('touchmove', event));
+          var newEvent = new TouchEvent('touchmove', {
+            touches: event.touches,
+            targetTouches: event.targetTouches,
+            changedTouches: event.changedTouches,
+            altKey: event.altKey,
+            metaKey: event.metaKey,
+            ctrlKey: event.ctrlKey,
+            shiftKey: event.shiftKey
+          });
+          document.body.dispatchEvent(newEvent);
+        }
+      });
+
+      // Disable vertical scrolling
+      xcontainer.addEventListener('wheel', function (event) {
+        if (event.deltaY !== 0) {
+          event.preventDefault();
+        }
+      });
+      xcontainer.addEventListener('mousewheel', function (event) {
+        if (event.wheelDeltaY !== 0) {
+          event.preventDefault();
         }
       });
     }
