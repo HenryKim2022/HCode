@@ -8804,11 +8804,13 @@ document.addEventListener('DOMContentLoaded', function () {
         startY = event.touches[0].clientY; // Get initial touch position
       });
       xcontainer.addEventListener('touchmove', function (event) {
+        console.log('touchmove event triggered');
         var moveX = event.touches[0].clientX - startX;
         var moveY = event.touches[0].clientY - startY;
 
         // If user is trying to scroll vertically (more than horizontally)
         if (Math.abs(moveY) > Math.abs(moveX)) {
+          console.log('vertical scrolling detected');
           event.preventDefault(); // Prevent default scrolling behavior
           event.stopPropagation(); // Stop horizontal scrolling
           // Allow the page to scroll
@@ -8821,8 +8823,14 @@ document.addEventListener('DOMContentLoaded', function () {
             ctrlKey: event.ctrlKey,
             shiftKey: event.shiftKey
           });
+          console.log('dispatching new event to document.body');
           document.body.dispatchEvent(newEvent);
+          // Move the scroll position of the page
+          window.scrollTo(0, window.scrollY + moveY);
         }
+      });
+      document.body.addEventListener('touchmove', function (event) {
+        console.log('touchmove event received by document.body');
       });
 
       // Disable vertical scrolling
