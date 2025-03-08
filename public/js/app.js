@@ -8799,29 +8799,40 @@ document.addEventListener('DOMContentLoaded', function () {
         suppressScrollY: true // Disable vertical scroll
       });
       var startX, startY;
+      var lastMoveTime = 0;
+      var velocity = 0;
       xcontainer.addEventListener('touchstart', function (event) {
         startX = event.touches[0].clientX; // Get initial touch position
         startY = event.touches[0].clientY; // Get initial touch position
+        lastMoveTime = Date.now();
+        velocity = 0;
       });
       var isTouchScrollingVertically = false;
       xcontainer.addEventListener('touchmove', function (event) {
         console.log('touchmove event triggered');
         var moveX = event.touches[0].clientX - startX;
         var moveY = event.touches[0].clientY - startY;
+        var currentTime = Date.now();
+        var deltaTime = currentTime - lastMoveTime;
+        lastMoveTime = currentTime;
 
         // If user is trying to move vertically (more than horizontally)
         if (Math.abs(moveY) > Math.abs(moveX)) {
           console.log('vertical touch move detected');
           event.preventDefault(); // Prevent default scrolling behavior
           event.stopPropagation(); // Stop horizontal scrolling
-          // Allow the page to scroll
-          window.scrollTo(0, window.scrollY - moveY);
 
           // Disable horizontal scrollbar if not already disabled
           if (!isTouchScrollingVertically) {
             isTouchScrollingVertically = true;
             xcontainer.style.overflowX = 'hidden';
           }
+
+          // Calculate velocity
+          velocity = moveY / deltaTime;
+
+          // Animate the scrolling
+          window.scrollTo(0, window.scrollY - moveY);
         } else {
           // Re-enable horizontal scrollbar if it was previously disabled
           if (isTouchScrollingVertically) {
@@ -8837,6 +8848,16 @@ document.addEventListener('DOMContentLoaded', function () {
           isTouchScrollingVertically = false;
           xcontainer.style.overflowX = 'auto';
         }
+
+        // Animate the scrolling based on velocity
+        function animateScrolling() {
+          window.scrollTo(0, window.scrollY - velocity);
+          velocity *= 0.9; // Slow down the velocity over time
+          if (Math.abs(velocity) > 0.1) {
+            requestAnimationFrame(animateScrolling);
+          }
+        }
+        animateScrolling();
       });
       document.body.addEventListener('touchmove', function (event) {
         console.log('touchmove event received by document.body');
