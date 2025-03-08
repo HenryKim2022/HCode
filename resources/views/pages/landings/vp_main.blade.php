@@ -113,23 +113,6 @@
                         </div> <!-- end col-->
                     @endfor
 
-                    <script>
-                        // Get all image elements
-                        var images = document.querySelectorAll('.card-img-top');
-
-                        // Loop through each image element
-                        images.forEach(function(img) {
-                            // Get the reload button within the same parent element
-                            var reloadButton = img.parentNode.querySelector('[data-bs-toggle="reload"]');
-
-                            // Add an event listener to the image
-                            img.addEventListener('loadstart', function() {
-                                // Trigger the reload functionality
-                                reloadButton.click();
-                            });
-                        });
-                    </script>
-
                 </div> <!-- end row -->
             </div> <!-- end container -->
         </div>
@@ -460,121 +443,9 @@
                         }
                         updatePagination(pageNumber);
                         if (cardsList.innerHTML === '') {
-                            cardsList.innerHTML = '<p class="text-center">No ' + selectedCategory +' found.</p>';
+                            cardsList.innerHTML = '<p class="text-center">No ' + selectedCategory + ' found.</p>';
                         }
                     }
-
-
-
-
-
-                    // function updatePagination(pageNumber) {
-                    //     var paginationList = document.querySelector('nav[aria-label="Page navigation example"] ul');
-                    //     if (paginationList === null) {
-                    //         console.error('paginationList is null');
-                    //         return;
-                    //     }
-
-                    //     var totalPages = Math.ceil(cards.length / realEnd);
-
-                    //     // clear pagination list
-                    //     paginationList.innerHTML = '';
-
-                    //     // add prev button
-                    //     var prevButton = document.createElement('li');
-                    //     prevButton.classList.add('page-item');
-                    //     prevButton.innerHTML = '<a class="page-link" aria-label="Previous" onclick="updatePage(event, ' + (pageNumber -
-                    //         1) + ')"><span aria-hidden="true">&laquo;</span></a>';
-                    //     if (pageNumber === 1) {
-                    //         prevButton.classList.add('disabled');
-                    //         prevButton.querySelector('a').removeAttribute('onclick');
-                    //     }
-                    //     paginationList.appendChild(prevButton);
-
-                    //     // add first page number
-                    //     if (pageNumber > 3) {
-                    //         var paginationFirst = document.createElement('li');
-                    //         paginationFirst.classList.add('page-item');
-                    //         paginationFirst.innerHTML = '<a class="page-link" href="#" onclick="updatePage(event, 1)">1</a>';
-                    //         paginationList.appendChild(paginationFirst);
-                    //         var paginationEllipsis = document.createElement('li');
-                    //         paginationEllipsis.classList.add('page-item');
-                    //         paginationEllipsis.classList.add('disabled');
-                    //         paginationEllipsis.innerHTML = '<a class="page-link" href="#">...</a>';
-                    //         paginationList.appendChild(paginationEllipsis);
-                    //     }
-
-                    //     // add middle page numbers
-                    //     var start = Math.max(1, pageNumber - 1);
-                    //     var end = Math.min(totalPages, pageNumber + 1);
-                    //     if (window.innerWidth < 768) {
-                    //         start = Math.max(1, pageNumber - 1);
-                    //         end = Math.min(totalPages, pageNumber + 1);
-                    //         if (start > 1) {
-                    //             start = Math.max(1, pageNumber - 1);
-                    //         }
-                    //         if (end < totalPages) {
-                    //             end = Math.min(totalPages, pageNumber + 1);
-                    //         }
-                    //         var middlePageNumbers = [];
-                    //         for (var i = start; i <= end; i++) {
-                    //             middlePageNumbers.push(i);
-                    //         }
-                    //         if (middlePageNumbers.length > 3) {
-                    //             middlePageNumbers = [middlePageNumbers[0], middlePageNumbers[1], middlePageNumbers[2]];
-                    //         }
-                    //         middlePageNumbers.forEach(function(pageNumber) {
-                    //             var paginationLink = document.createElement('li');
-                    //             paginationLink.classList.add('page-item');
-                    //             if (pageNumber === currentPage) { // Use currentPage
-                    //                 paginationLink.classList.add('active');
-                    //             }
-                    //             paginationLink.innerHTML =
-                    //                 '<a class="page-link" href="javascript:void(0)" onclick="updatePage(event, ' + pageNumber +
-                    //                 ')">' + pageNumber + '</a>';
-                    //             paginationList.appendChild(paginationLink);
-                    //         });
-                    //     } else {
-                    //         for (var i = start; i <= end; i++) {
-                    //             var paginationLink = document.createElement('li');
-                    //             paginationLink.classList.add('page-item');
-                    //             if (pageNumber === i) {
-                    //                 paginationLink.classList.add('active');
-                    //             }
-                    //             paginationLink.innerHTML =
-                    //                 '<a class="page-link" href="javascript:void(0)" onclick="updatePage(event, ' + i + ')">' + i +
-                    //                 '</a>';
-                    //             paginationList.appendChild(paginationLink);
-                    //         }
-                    //     }
-
-                    //     // add last page number
-                    //     if (pageNumber < totalPages - 1) {
-                    //         var paginationEllipsis = document.createElement('li');
-                    //         paginationEllipsis.classList.add('page-item');
-                    //         paginationEllipsis.classList.add('disabled');
-                    //         paginationEllipsis.innerHTML = '<a class="page-link" href="javascript:void(0)">...</a>';
-                    //         paginationList.appendChild(paginationEllipsis);
-                    //         var paginationLast = document.createElement('li');
-                    //         paginationLast.classList.add('page-item');
-                    //         paginationLast.innerHTML = '<a class="page-link" href="javascript:void(0)" onclick="updatePage(event, ' +
-                    //             totalPages + ')">' + totalPages + '</a>';
-                    //         paginationList.appendChild(paginationLast);
-                    //     }
-
-                    //     // add next button
-                    //     var nextButton = document.createElement('li');
-                    //     nextButton.classList.add('page-item');
-                    //     nextButton.innerHTML = '<a class="page-link" aria-label="Next" onclick="updatePage(event, ' + (pageNumber + 1) +
-                    //         ')"><span aria-hidden="true">&raquo;</span></a>';
-                    //     if (pageNumber === totalPages) {
-                    //         nextButton.classList.add('disabled');
-                    //         nextButton.querySelector('a').removeAttribute('onclick');
-                    //     }
-                    //     paginationList.appendChild(nextButton);
-                    // }
-
-
 
                     function updatePagination(pageNumber) {
                         console.log('currentPage:', currentPage);

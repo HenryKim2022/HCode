@@ -2,15 +2,14 @@
     scrollbar-width: thin;
     position: relative;
     overflow-x: hidden;
-    /* Enable horizontal scrolling */
     overflow-y: hidden;
-    /* Disable vertical scrolling */
+    touch-action: pan-y;
 }
 
-/* .x-scrollable:hover {
+.x-scrollable:hover {
     scrollbar-width: thin;
     overflow-x: auto;
-} */
+}
 
 .ps__rail-x:hover>.ps__thumb-x,
 .ps__rail-x:focus>.ps__thumb-x,
@@ -23,9 +22,8 @@
     scrollbar-width: thin;
     position: relative;
     overflow-x: hidden;
-    /* Enable horizontal scrolling */
     overflow-y: hidden;
-    /* Disable vertical scrolling */
+    touch-action: pan-x;
 }
 
 .y-scrollable:hover {
@@ -40,6 +38,24 @@
 }
 
 
+.xy-scrollable {
+    scrollbar-width: thin;
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+.xy-scrollable:hover {
+    scrollbar-width: thin;
+    overflow-x: auto;
+    overflow-y: auto;
+}
+
+.ps__rail-xy:hover>.ps__thumb-xy,
+.ps__rail-xy:focus>.ps__thumb-xy,
+.ps__rail-xy.ps--clicking .ps__thumb-xy {
+    height: 6px !important;
+}
 
 
 
