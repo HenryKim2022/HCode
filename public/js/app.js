@@ -8791,52 +8791,48 @@ __webpack_require__.r(__webpack_exports__);
 
 document.addEventListener('DOMContentLoaded', function () {
   var xcontainers = document.querySelectorAll('.x-scrollable');
-  xcontainers.forEach(function (container) {
-    if (container) {
-      new perfect_scrollbar__WEBPACK_IMPORTED_MODULE_1__["default"](container, {
+  xcontainers.forEach(function (xcontainer) {
+    if (xcontainer) {
+      new perfect_scrollbar__WEBPACK_IMPORTED_MODULE_1__["default"](xcontainer, {
         suppressScrollX: false,
         // Enable horizontal scroll
         suppressScrollY: true // Disable vertical scroll
       });
-      var startY;
-      container.addEventListener('touchstart', function (event) {
-        startY = event.touches[0].clientY; // Get initial vertical touch position
+      var startX, startY;
+      xcontainer.addEventListener('touchstart', function (event) {
+        startX = event.touches[0].clientX; // Get initial touch position
+        startY = event.touches[0].clientY; // Get initial touch position
       });
-      container.addEventListener('touchmove', function (event) {
-        var moveY = event.touches[0].clientY - startY; // Calculate vertical movement
-        var moveX = event.touches[0].clientX - container.getBoundingClientRect().left; // Calculate horizontal movement
+      xcontainer.addEventListener('touchmove', function (event) {
+        var moveX = event.touches[0].clientX - startX;
+        var moveY = event.touches[0].clientY - startY;
 
-        // Determine if the user is trying to scroll vertically more than horizontally
+        // If user is trying to scroll vertically (more than horizontally)
         if (Math.abs(moveY) > Math.abs(moveX)) {
-          // If vertical movement is greater, allow the page to scroll
-          return; // Let the event propagate for page scroll
+          event.preventDefault(); // Prevent default scrolling behavior
+          event.stopPropagation(); // Stop horizontal scrolling
         }
-
-        // If horizontal movement is greater, prevent the default vertical scrolling
-        event.preventDefault();
-        container.scrollLeft += moveX; // Scroll horizontally
       });
     }
   });
   var ycontainers = document.querySelectorAll('.y-scrollable');
-  ycontainers.forEach(function (container) {
-    if (container) {
-      new perfect_scrollbar__WEBPACK_IMPORTED_MODULE_1__["default"](container, {
+  ycontainers.forEach(function (ycontainer) {
+    if (ycontainer) {
+      new perfect_scrollbar__WEBPACK_IMPORTED_MODULE_1__["default"](ycontainer, {
         suppressScrollX: true,
         // Disable horizontal scroll
         suppressScrollY: false // Enable vertical scroll
       });
       var startY;
-      container.addEventListener('touchstart', function (event) {
-        startY = event.touches[0].clientY; // Get initial vertical touch position
+      ycontainer.addEventListener('touchstart', function (event) {
+        startY = event.touches[0].clientY; // Get initial touch position
       });
-      container.addEventListener('touchmove', function (event) {
+      ycontainer.addEventListener('touchmove', function (event) {
         var moveY = event.touches[0].clientY - startY;
-
-        // If the user is trying to scroll horizontally more than vertically
-        if (Math.abs(moveY) < Math.abs(event.touches[0].clientX - container.getBoundingClientRect().left)) {
-          event.preventDefault(); // Prevent vertical scrolling
-          container.scrollLeft += event.touches[0].clientX - container.getBoundingClientRect().left; // Scroll horizontally
+        // If user is trying to scroll horizontally (more than vertically)
+        if (Math.abs(moveY) < Math.abs(event.touches[0].clientX - ycontainer.getBoundingClientRect().left)) {
+          event.stopPropagation(); // Stop vertical scrolling
+          ycontainer.scrollLeft += moveY; // Scroll horizontally
         }
       });
     }
