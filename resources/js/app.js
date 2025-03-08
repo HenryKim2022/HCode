@@ -29,9 +29,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 const moveX = event.touches[0].clientX - startX;
                 const moveY = event.touches[0].clientY - startY;
 
-                // Disable horizontal scrollbar
-                xcontainer.style.overflowX = 'hidden';
-
                 // If user is trying to move vertically (more than horizontally)
                 if (Math.abs(moveY) > Math.abs(moveX)) {
                     console.log('vertical touch move detected');
@@ -39,6 +36,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     event.stopPropagation(); // Stop horizontal scrolling
                     // Allow the page to scroll
                     window.scrollTo(0, window.scrollY - moveY);
+
+                    // Disable horizontal scrollbar if not already disabled
+                    if (!isScrollingVertically) {
+                        isScrollingVertically = true;
+                        xcontainer.style.overflowX = 'hidden';
+                    }
                 } else {
                     // Re-enable horizontal scrollbar if it was previously disabled
                     if (isScrollingVertically) {

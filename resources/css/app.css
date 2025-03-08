@@ -1,45 +1,51 @@
+/* CUSTOM CSS: PRETTY SCROLLBAR */
 .x-scrollable {
-    scrollbar-width: thin;
+    /* scrollbar-width: thin; */
     position: relative;
     overflow-x: hidden;
     overflow-y: hidden;
     touch-action: pan-y;
 }
 
-.x-scrollable:hover {
+/* .x-scrollable:hover {
     scrollbar-width: thin;
     overflow-x: auto;
+} */
+.ps__rail-x{
+    width: 0px !important;
 }
 
 .ps__rail-x:hover>.ps__thumb-x,
 .ps__rail-x:focus>.ps__thumb-x,
 .ps__rail-x.ps--clicking .ps__thumb-x {
     height: 6px !important;
+    background-color: none !important;
 }
 
 
 .y-scrollable {
-    scrollbar-width: thin;
+    /* scrollbar-width: thin; */
     position: relative;
     overflow-x: hidden;
     overflow-y: hidden;
     touch-action: pan-x;
 }
 
-.y-scrollable:hover {
+/* .y-scrollable:hover {
     scrollbar-width: thin;
     overflow-y: auto;
-}
+} */
 
 .ps__rail-y:hover>.ps__thumb-y,
 .ps__rail-y:focus>.ps__thumb-y,
 .ps__rail-y.ps--clicking .ps__thumb-y {
     height: 6px !important;
+    background-color: none !important;
 }
 
 
 .xy-scrollable {
-    scrollbar-width: thin;
+    /* scrollbar-width: thin; */
     position: relative;
     overflow-x: hidden;
     overflow-y: hidden;
@@ -60,7 +66,7 @@
 
 
 
-
+/* CUSTOM CSS: LAZY LOAD IMG */
 .lazy-load {
     position: relative;
     display: flex;
@@ -102,3 +108,10 @@
         transform: rotate(360deg);
     }
 }
+
+
+
+/* CUSTOM CSS: CATEGORY TAGS */
+/* .posts-tags {
+    padding: 6px 12px !important;
+} */
